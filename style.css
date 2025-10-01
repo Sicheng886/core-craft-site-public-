@@ -84,7 +84,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 64px;
+  height: 72px;
 }
 .brand {
   display: flex;
@@ -115,12 +115,13 @@ header {
   font-size: 0.98rem;
   padding: 8px 10px;
   border-radius: 10px;
+  transition: color 0.2s ease, background 0.2s ease;
 }
 .nav-links a:hover {
   color: var(--text);
   background: var(--surface);
 }
-.nav-cta {
+a.nav-cta {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -132,6 +133,7 @@ header {
   font-weight: 700;
   letter-spacing: 0.2px;
   box-shadow: var(--shadow);
+  transition: background 0.2s ease, box-shadow 0.2s ease;
 }
 .nav-cta:hover {
   background: #0b1220;
@@ -225,33 +227,56 @@ header {
   padding: 0;
   padding-top: 8rem;
   height: calc(100vh - 8rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 .hero::before {
   content: '';
   position: absolute;
   inset: -20% -20% auto -20%;
-  height: 54%;
+  height: 60%; /* Increased height for more prominence */
   background: radial-gradient(
-      60% 60% at 20% 20%,
-      var(--accent),
-      transparent 60%
+      70% 70% at 20% 20%,
+      /* Adjusted size and position */ var(--accent),
+      transparent 70%
     ),
-    radial-gradient(50% 50% at 80% 0%, #e6fffb, transparent 60%);
+    radial-gradient(60% 60% at 80% 0%, #e6fffb, transparent 70%); /* Adjusted size and position */
   z-index: -1;
+  opacity: 0.7; /* Slightly more opaque */
 }
 .hero-inner {
   display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
+  grid-template-columns: 1fr 1fr; /* Changed to equal columns */
   gap: clamp(20px, 4vw, 48px);
   align-items: center;
+  max-width: var(--maxw); /* Ensure it respects container width */
+  margin-inline: auto; /* Center the grid */
+  padding-inline: var(--pad); /* Add padding */
+}
+.hero-inner > div {
+  text-align: left; /* Align text to left within its column */
+}
+.hero-media {
+  margin-top: 0; /* Reset margin for new layout */
 }
 @media (max-width: 900px) {
   .hero {
     padding-top: 2rem;
-    height: calc(100vh - 2rem);
+    height: auto; /* Allow height to adjust */
+    text-align: center; /* Center text on smaller screens */
   }
   .hero-inner {
     grid-template-columns: 1fr;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+  .hero-inner > div {
+    text-align: center; /* Center text within its column */
+  }
+  .cta-row {
+    justify-content: center; /* Center buttons on smaller screens */
   }
   .hero-media {
     margin-top: 3rem;
@@ -261,7 +286,7 @@ header {
 @media (max-width: 700px) {
   .hero {
     padding-top: 2rem;
-    height: calc(100vh - 2rem);
+    height: auto; /* Allow height to adjust */
   }
   .hero-inner {
     grid-template-columns: 1fr;
@@ -299,19 +324,19 @@ header {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
+  justify-content: flex-start; /* Align buttons to the left */
 }
 .btn {
   display: inline-flex;
   align-items: center;
   gap: 10px;
   padding: 12px 16px;
-  border-radius: 12px;
   border: 1px solid var(--border);
   font-weight: 700;
   text-decoration: none;
   color: var(--text);
   background: var(--card);
-  transition: transform 0.06s ease, background 0.2s ease, box-shadow 0.2s ease,
+  transition: transform 0.15s ease, background 0.2s ease, box-shadow 0.2s ease,
     color 0.2s ease;
 }
 .btn:hover {
@@ -327,7 +352,6 @@ header {
 .btn.primary:hover {
   background: #0b615b;
 }
-
 .hero-media {
   aspect-ratio: 4 / 3;
   border-radius: 16px;
@@ -338,13 +362,17 @@ header {
   overflow: hidden;
   display: grid;
   place-items: center;
+  animation: float 3s ease-in-out infinite; /* Apply floating animation */
 }
+.hero-media:hover {
+  box-shadow: 0 15px 40px rgba(15, 23, 42, 0.15); /* Increased shadow on hover */
+}
+
 .hero-graphic {
   width: 90%;
   max-width: 520px;
   filter: drop-shadow(0 12px 24px rgba(15, 23, 42, 0.08));
 }
-
 /* Sections */
 section {
   padding: 0;
@@ -400,6 +428,7 @@ section:first-child {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .card .icon {
   width: 38px;
@@ -438,6 +467,11 @@ section:first-child {
   border-bottom-style: solid;
 }
 
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(15, 23, 42, 0.1);
+}
+
 /* About */
 .about {
   background: linear-gradient(180deg, #ffffff 0%, #f7fbfc 100%);
@@ -465,9 +499,14 @@ section:first-child {
   padding: 10px 12px;
   width: fit-content;
   box-shadow: var(--shadow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .stat strong {
   font-size: 1.1rem;
+}
+.stat:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
 }
 
 /* Process */
@@ -494,6 +533,7 @@ section:first-child {
   padding: 18px;
   box-shadow: var(--shadow);
   position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .step::before {
   counter-increment: step;
@@ -519,6 +559,10 @@ section:first-child {
 .step p {
   margin: 0;
   color: var(--muted);
+}
+.step:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(15, 23, 42, 0.1);
 }
 
 /* Contact */
@@ -612,9 +656,12 @@ footer {
   color: var(--text);
   text-decoration: none;
   background: var(--card);
+  transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
 }
 .social a:hover {
   background: var(--surface);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
 }
 
 /* Focus styles */
@@ -629,5 +676,18 @@ footer {
   * {
     animation: none !important;
     transition: none !important;
+  }
+}
+
+/* Floating animation for hero media */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: translateY(0px);
   }
 }
